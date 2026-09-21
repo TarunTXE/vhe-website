@@ -2,32 +2,32 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, Maximize2 } from 'lucide-react';
 
-import wa1 from '../../assets/WhatsApp Image 2026-07-19 at 2.26.25 PM.jpeg';
-import wa2 from '../../assets/WhatsApp Image 2026-07-19 at 2.26.26 PM (1).jpeg';
-import wa3 from '../../assets/WhatsApp Image 2026-07-19 at 2.26.26 PM.jpeg';
-import wa4 from '../../assets/WhatsApp Image 2026-07-19 at 2.26.27 PM.jpeg';
-import authorImg from '../../assets/author.webp';
-import breathlessImg from '../../assets/breathless.jpg';
-import dravidanImg from '../../assets/dravidan.png';
-import gocImg from '../../assets/goc.jpg';
-import heroBg from '../../assets/hero-bg.gif';
-import heroImg from '../../assets/hero.png';
-import iconImg from '../../assets/icon.jpeg';
-import venkiImg from '../../assets/venki.jpg';
+import authorImg from '../../assets/author/author.webp';
+import breathlessImg from '../../assets/author/breathless.jpg';
+import dravidanImg from '../../assets/author/dravidan.png';
+import gocImg from '../../assets/author/goc.jpg';
+import heroBg from '../../assets/author/hero-bg.gif';
+import venkiImg from '../../assets/author/venki.jpg';
+import doctorPortrait from '../../assets/doctor/icon.jpeg';
+import doctorFull from '../../assets/doctor/full photo.jpeg';
+import comtrustLab from '../../assets/doctor/comtrust lab.jpeg';
+import churuFelicitation from '../../assets/doctor/churu2.jpeg';
+import churuCamp from '../../assets/doctor/churu1.jpeg';
+import churuHospital from '../../assets/doctor/churu3.jpeg';
 
 const galleryImages = [
-  { id: 1, src: authorImg, title: 'The Author at Work', format: 'tall' },
-  { id: 2, src: wa1, title: 'Creative Journey', format: 'wide' },
-  { id: 3, src: dravidanImg, title: 'Dravidan Cover Art', format: 'tall' },
-  { id: 4, src: wa2, title: 'Moments', format: 'square' },
-  { id: 5, src: breathlessImg, title: 'Breathless Production', format: 'wide' },
-  { id: 6, src: heroBg, title: 'Cinematic Mood', format: 'wide' },
-  { id: 7, src: wa3, title: 'Behind the Scenes', format: 'square' },
-  { id: 8, src: venkiImg, title: 'Venki Concept', format: 'tall' },
-  { id: 9, src: wa4, title: 'Vision', format: 'wide' },
-  { id: 10, src: gocImg, title: 'Garden Of Compassion Poster', format: 'square' },
-  { id: 11, src: heroImg, title: 'Medical Persona', format: 'tall' },
-  { id: 12, src: iconImg, title: 'Profile', format: 'square' }
+  { id: 1, src: authorImg, title: 'The Author at Work', format: 'tall', alt: 'Varun Harish - Author and Filmmaker' },
+  { id: 2, src: churuFelicitation, title: 'Creative Journey & Service', format: 'wide', alt: 'Dr. Varun Harish receiving recognition at Churu outreach' },
+  { id: 3, src: dravidanImg, title: 'Dravidan Cover Art', format: 'tall', alt: 'Dravidan' },
+  { id: 4, src: comtrustLab, title: 'Precision in Practice', format: 'tall', alt: 'Dr. Varun Harish operating ophthalmic surgical microscope' },
+  { id: 5, src: breathlessImg, title: 'Breathless Production', format: 'wide', alt: 'Breathless - short film' },
+  { id: 6, src: heroBg, title: 'Cinematic Mood', format: 'wide', alt: 'Atmospheric cinematic visual' },
+  { id: 7, src: churuCamp, title: 'Community Outreach', format: 'square', alt: 'Community eye care camp team' },
+  { id: 8, src: venkiImg, title: 'Venki Concept', format: 'tall', alt: 'Venki' },
+  { id: 9, src: churuHospital, title: 'Clinical Community', format: 'square', alt: 'Medical staff and resident doctors at PDU Medical College' },
+  { id: 10, src: gocImg, title: 'Garden Of Compassion Poster', format: 'square', alt: 'Garden Of Compassion - short film' },
+  { id: 11, src: doctorFull, title: 'Personal Journey', format: 'tall', alt: 'Dr. Varun Harish E.' },
+  { id: 12, src: doctorPortrait, title: 'Professional Portrait', format: 'square', alt: 'Dr. Varun Harish E. - Ophthalmologist' }
 ];
 
 export default function AuthorGallery() {
@@ -79,8 +79,9 @@ export default function AuthorGallery() {
               >
                 <img 
                   src={img.src} 
-                  alt={img.title} 
+                  alt={img.alt || img.title} 
                   className={`w-full h-full object-cover transition-all duration-700 ${img.src === heroBg ? 'filter grayscale group-hover:grayscale-0' : 'filter brightness-75 group-hover:brightness-110 group-hover:saturate-150'}`}
+                  loading="lazy"
                 />
               </motion.div>
               
@@ -133,7 +134,7 @@ export default function AuthorGallery() {
               <div className="relative w-full h-full flex items-center justify-center">
                 <img 
                   src={selectedImage.src} 
-                  alt={selectedImage.title} 
+                  alt={selectedImage.alt || selectedImage.title} 
                   className="max-w-full max-h-full object-contain rounded-sm shadow-[0_0_50px_rgba(0,0,0,1)] border border-white/5"
                 />
               </div>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
@@ -10,6 +11,16 @@ import CustomCursor from './components/ui/CustomCursor';
 
 function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/author')) {
+      document.title = "Varun Harish | Author & Filmmaker";
+    } else if (location.pathname.startsWith('/medical')) {
+      document.title = "Dr. Varun Harish E. | Ophthalmologist";
+    } else {
+      document.title = "Dr. Varun Harish E. | Ophthalmologist & Author";
+    }
+  }, [location.pathname]);
 
   return (
     <>

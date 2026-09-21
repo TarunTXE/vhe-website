@@ -6,8 +6,8 @@ import AuthorFilms from './AuthorFilms';
 import AuthorNovels from './AuthorNovels';
 import AuthorContact from './AuthorContact';
 import MagneticButton from '../../components/ui/MagneticButton';
-import heroBg from '../../assets/hero-bg.gif';
-import authorImg from '../../assets/author.webp';
+import heroBg from '../../assets/author/hero-bg.gif';
+import authorImg from '../../assets/author/author.webp';
 
 const sentence: any = {
   hidden: { opacity: 1 },
@@ -62,7 +62,7 @@ export default function AuthorHome() {
   }));
 
   return (
-    <div ref={containerRef} className="w-full relative bg-zinc-950">
+    <main ref={containerRef} className="w-full relative bg-zinc-950">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         
@@ -76,8 +76,10 @@ export default function AuthorHome() {
         >
           <img 
             src={heroBg} 
-            alt="Cinematic background" 
+            alt="" 
+            role="presentation"
             className="w-full h-full object-cover"
+            loading="eager"
           />
           {/* Overlays */}
           <div className="absolute inset-0 bg-zinc-950/70" />
@@ -184,8 +186,11 @@ export default function AuthorHome() {
               <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent mix-blend-overlay z-10 opacity-50" />
               <img 
                 src={authorImg} 
-                alt="Varun Harish E." 
+                alt="Varun Harish - Author and Filmmaker" 
                 className="w-full h-full object-cover filter contrast-125 saturate-50 sepia-[.2]"
+                width="400"
+                height="533"
+                loading="eager"
               />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-sm z-20" />
             </motion.div>
@@ -208,6 +213,6 @@ export default function AuthorHome() {
       <div id="films"><AuthorFilms /></div>
       <div id="novels"><AuthorNovels /></div>
       <AuthorContact />
-    </div>
+    </main>
   );
 }

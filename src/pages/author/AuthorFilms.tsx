@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, X, Clapperboard, Award } from 'lucide-react';
-import breathlessImg from '../../assets/breathless.jpg';
-import gocImg from '../../assets/goc.jpg';
+import breathlessImg from '../../assets/author/breathless.jpg';
+import gocImg from '../../assets/author/goc.jpg';
 
 const films = [
   {
@@ -61,7 +61,14 @@ export default function AuthorFilms() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <img src={film.coverImg} alt={film.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+              <img 
+                src={film.coverImg} 
+                alt={`${film.title} - short film`} 
+                className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500" 
+                loading="lazy"
+                width="600"
+                height="338"
+              />
             </motion.div>
 
             {/* Overlays */}

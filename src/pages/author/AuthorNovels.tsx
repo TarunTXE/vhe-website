@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Star, X, ArrowRight } from 'lucide-react';
 import MagneticButton from '../../components/ui/MagneticButton';
-import dravidanCover from '../../assets/dravidan.png';
-import venkiCover from '../../assets/venki.jpg';
+import dravidanCover from '../../assets/author/dravidan.png';
+import venkiCover from '../../assets/author/venki.jpg';
 
 const novels = [
   {
@@ -90,6 +90,9 @@ export default function AuthorNovels() {
                   src={novel.coverImg} 
                   alt={novel.title} 
                   className="w-full h-full object-cover" 
+                  loading="lazy"
+                  width="320"
+                  height="480"
                 />
               </div>
 
@@ -210,7 +213,7 @@ export default function AuthorNovels() {
                     <div className="flex gap-4 justify-center lg:justify-start opacity-60">
                       {novels.filter(n => n.id !== selectedBook.id).map(n => (
                         <div key={n.id} className="w-16 h-24 bg-zinc-800 rounded-r-md cursor-pointer hover:opacity-100 transition-opacity" onClick={() => setSelectedBook(n)}>
-                          <img src={n.coverImg} alt={n.title} className="w-full h-full object-cover rounded-r-md" />
+                          <img src={n.coverImg} alt={n.title} className="w-full h-full object-cover rounded-r-md" loading="lazy" width="64" height="96" />
                         </div>
                       ))}
                     </div>

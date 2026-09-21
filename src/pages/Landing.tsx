@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Activity, ScanFace, Dna } from 'lucide-react';
-import iconImage from '../assets/icon.jpeg';
-import authorImg from '../assets/author.webp';
-import heroBg from '../assets/hero-bg.gif';
+import iconImage from '../assets/doctor/icon.jpeg';
+import authorImg from '../assets/author/author.webp';
+import heroBg from '../assets/author/hero-bg.gif';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -135,7 +135,7 @@ export default function Landing() {
                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-[3px] border-white shadow-[0_0_30px_rgba(59,130,246,0.3)] bg-blue-50 z-10"
              >
-               <img src={iconImage} alt="Dr. Varun Harish E." className="w-full h-full object-cover" />
+                <img src={iconImage} alt="Dr. Varun Harish E. - Ophthalmologist" className="w-full h-full object-cover" width="160" height="160" loading="eager" />
                <motion.div 
                  animate={{ opacity: hoveredSide === 'medical' ? 1 : 0 }}
                  className="absolute inset-0 bg-blue-500/10 mix-blend-overlay transition-opacity duration-500" 
@@ -259,7 +259,7 @@ export default function Landing() {
           transition={{ duration: 10, ease: 'easeOut' }}
           className="absolute inset-0 z-0 origin-center"
         >
-          <img src={heroBg} alt="Cinematic" className="w-full h-full object-cover filter brightness-75" loading="lazy" />
+          <img src={heroBg} alt="" role="presentation" className="w-full h-full object-cover filter brightness-75" loading="eager" />
         </motion.div>
 
         {/* Cinematic Overlays */}
@@ -330,7 +330,7 @@ export default function Landing() {
                  ${hoveredSide === 'author' ? 'border-amber-500/50 shadow-[0_0_40px_rgba(245,158,11,0.2)]' : 'grayscale-[30%]'}
                `}
              >
-               <img src={authorImg} alt="Varun Harish E" className="w-full h-full object-cover filter contrast-125 sepia-[0.2]" />
+                <img src={authorImg} alt="Varun Harish - Author and Filmmaker" className="w-full h-full object-cover filter contrast-125 sepia-[0.2]" width="160" height="160" loading="eager" />
                
                {/* Inner gold glow */}
                <div className="absolute inset-0 rounded-full shadow-[inset_0_0_20px_rgba(245,158,11,0.3)] pointer-events-none" />

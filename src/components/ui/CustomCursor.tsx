@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 export default function CustomCursor() {
   const [isHoveringGallery, setIsHoveringGallery] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobileOrTouch, setIsMobileOrTouch] = useState(true);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -13,6 +14,15 @@ export default function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    const checkTouchOrMobile = () => {
+      const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      const isSmallScreen = window.innerWidth < 1024;
+      setIsMobileOrTouch(isTouch || isSmallScreen);
+    };
+
+    checkTouchOrMobile();
+    window.addEventListener('resize', checkTouchOrMobile);
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -37,17 +47,18 @@ export default function CustomCursor() {
     document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
+      window.removeEventListener('resize', checkTouchOrMobile);
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [cursorX, cursorY, isVisible]);
 
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined' || isMobileOrTouch) return null;
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center mix-blend-difference"
+      className="hidden lg:flex fixed top-0 left-0 pointer-events-none z-[9999] items-center justify-center mix-blend-difference"
       style={{
         x: cursorXSpring,
         y: cursorYSpring,

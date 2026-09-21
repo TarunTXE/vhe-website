@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { Quote } from 'lucide-react';
-import authorImg from '../../assets/author.webp';
+import authorImg from '../../assets/author/author.webp';
 
 export default function AuthorAbout() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -54,8 +54,11 @@ export default function AuthorAbout() {
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent z-10 opacity-60" />
               <img 
                 src={authorImg} 
-                alt="Author working" 
+                alt="Varun Harish - Author and Filmmaker" 
                 className="w-full h-full object-cover filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" 
+                loading="lazy"
+                width="400"
+                height="533"
               />
             </motion.div>
             {/* Ambient Background Glow */}
@@ -139,7 +142,9 @@ export default function AuthorAbout() {
               transition={{ duration: 1, delay: 0.8 }}
               className="mt-12 flex justify-end"
             >
-              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Jane_Austen_signature.svg" alt="Signature" className="h-10 filter invert opacity-30 hover:opacity-100 transition-opacity duration-500" />
+              <span className="font-cormorant italic text-2xl md:text-3xl text-amber-200/50 hover:text-amber-200/90 transition-colors duration-500 select-none tracking-wide">
+                Varun Harish E.
+              </span>
             </motion.div>
           </div>
         </motion.div>

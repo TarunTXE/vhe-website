@@ -72,15 +72,15 @@ export default function MedicalLayout() {
           }}
           animate={hidden ? "hidden" : "visible"}
           transition={{ duration: 0.35, ease: "easeInOut" }}
-          className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${
-            isScrolled || isMobileMenuOpen ? 'bg-white/90 backdrop-blur-xl border-b border-blue-100/50 shadow-sm' : 'bg-transparent'
+          className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 safe-top ${
+            isScrolled || isMobileMenuOpen ? 'bg-white/95 backdrop-blur-xl border-b border-blue-100/60 shadow-sm' : 'bg-transparent'
           }`}
         >
-          <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex justify-between items-center">
             
             {/* Logo */}
             <div 
-              className="flex items-center gap-2 cursor-pointer group z-50"
+              className="flex items-center gap-2.5 cursor-pointer group z-50 min-h-[44px] py-1"
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 const target = document.getElementById('home');
@@ -90,11 +90,14 @@ export default function MedicalLayout() {
               <motion.div 
                 whileHover={{ rotate: 90 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 10 }}
-                className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white"
+                className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white shrink-0 shadow-sm"
               >
                 <Activity size={18} />
               </motion.div>
-              <span className="font-semibold text-lg tracking-tight text-slate-800">Dr. Varun</span>
+              <div className="flex flex-col">
+                <span className="font-semibold text-base sm:text-lg tracking-tight text-slate-800 leading-tight">Dr. Varun</span>
+                <span className="text-[10px] font-medium uppercase tracking-wider text-blue-600 lg:hidden leading-none">Ophthalmology</span>
+              </div>
             </div>
 
             {/* Nav Links Desktop */}
@@ -129,44 +132,57 @@ export default function MedicalLayout() {
               <span>Portal</span>
             </MagneticButton>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Menu Toggle (Min 44px hit target) */}
             <button 
-              className="lg:hidden p-2 text-slate-600 hover:text-blue-600 transition-colors z-50"
+              className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-slate-700 hover:text-blue-600 bg-slate-100/70 active:bg-slate-200 transition-colors z-50"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
 
           </div>
 
-          {/* Mobile Menu Dropdown */}
+          {/* Mobile Menu Drawer */}
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="lg:hidden bg-white/95 backdrop-blur-xl border-b border-blue-100/50 overflow-hidden"
+                transition={{ duration: 0.28, ease: "easeInOut" }}
+                className="lg:hidden bg-white/98 backdrop-blur-2xl border-b border-blue-100/80 shadow-2xl overflow-hidden max-h-[calc(100vh-4rem)] overflow-y-auto"
               >
-                <div className="flex flex-col px-6 py-6 gap-4">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      onClick={(e) => scrollTo(e, link.href)}
-                      className={`text-lg font-medium py-2 transition-colors ${activeSection === link.href.substring(1) ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'}`}
-                    >
-                      {link.name}
-                    </a>
-                  ))}
+                <div className="flex flex-col px-4 sm:px-6 py-4 gap-1.5 safe-bottom">
+                  {navLinks.map((link) => {
+                    const isActive = activeSection === link.href.substring(1);
+                    return (
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        onClick={(e) => scrollTo(e, link.href)}
+                        className={`min-h-[48px] flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all ${
+                          isActive 
+                            ? 'bg-blue-50/90 text-blue-700 font-semibold border-l-4 border-blue-600 pl-3' 
+                            : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                        }`}
+                      >
+                        <span>{link.name}</span>
+                      </a>
+                    );
+                  })}
+                  
                   <div className="h-px w-full bg-slate-100 my-2" />
+                  
                   <button 
-                    onClick={() => navigate('/')}
-                    className="flex items-center gap-2 py-3 text-slate-700 font-medium hover:text-blue-600 transition-colors w-full text-left"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      navigate('/');
+                    }}
+                    className="min-h-[48px] flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-800 active:scale-[0.99] transition-all w-full text-sm shadow-md"
                   >
-                    <ArrowLeft size={18} />
-                    Back to Portal
+                    <ArrowLeft size={16} />
+                    <span>Back to Portal</span>
                   </button>
                 </div>
               </motion.div>
@@ -220,21 +236,36 @@ export default function MedicalLayout() {
             {/* Contact Info */}
             <div>
               <h4 className="text-white font-semibold mb-6 tracking-wide">Contact</h4>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3">
-                  <Mail size={16} className="text-blue-500" />
-                  <a href="mailto:varunharish.vhe@gmail.com" className="hover:text-white transition-colors">varunharish.vhe@gmail.com</a>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone size={16} className="text-blue-500" />
-                  <span>+91 XXX XXX XXXX</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <MapPin size={16} className="text-blue-500 mt-1 shrink-0" />
-                  <span className="leading-tight">
-                    Eye Care Clinic,<br/>
-                    Kochi, Kerala, India
+              <ul className="space-y-4 text-slate-400">
+                <li className="group flex items-start gap-3">
+                  <div className="mt-0.5 text-blue-500 group-hover:text-blue-400 group-hover:scale-110 group-hover:-translate-y-0.5 transition-all duration-200 shrink-0">
+                    <MapPin size={16} />
+                  </div>
+                  <span className="leading-snug text-slate-300 group-hover:text-white transition-colors duration-200">
+                    Kozhikode, Kerala, India
                   </span>
+                </li>
+                <li className="group flex items-center gap-3">
+                  <div className="text-blue-500 group-hover:text-blue-400 group-hover:scale-110 transition-all duration-200 shrink-0">
+                    <Phone size={16} />
+                  </div>
+                  <a 
+                    href="tel:+918281945642" 
+                    className="text-slate-300 hover:text-blue-400 transition-colors duration-200 tracking-wide py-0.5 inline-block"
+                  >
+                    +91 8281945642
+                  </a>
+                </li>
+                <li className="group flex items-center gap-3">
+                  <div className="text-blue-500 group-hover:text-blue-400 group-hover:scale-110 transition-all duration-200 shrink-0">
+                    <Mail size={16} />
+                  </div>
+                  <a 
+                    href="mailto:varunharish.vhe@gmail.com" 
+                    className="text-slate-300 hover:text-blue-400 transition-colors duration-200 break-all py-0.5 inline-block"
+                  >
+                    varunharish.vhe@gmail.com
+                  </a>
                 </li>
               </ul>
             </div>
